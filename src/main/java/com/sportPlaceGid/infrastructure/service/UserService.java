@@ -27,6 +27,7 @@ public class UserService {
         String passwordHash = passwordEncoder.encode(dto.getPassword());
         final User user = new User(dto.getEmail(), passwordHash, dto.getName());
         userRepository.save(user);
+        dto.setId(user.getId());
         dto.setPassword(null);
         return dto;
     }

@@ -21,15 +21,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/panel/user/login", "/oauth/token").permitAll()
-                .antMatchers(
-                        "/js/**",
-                        "/css/**",
-                        "/webjars/**").permitAll()
-                .and()
-                .formLogin().loginPage("/panel/user/login").successForwardUrl("/panel/user/").permitAll()
-                .and()
-                .logout().permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated();

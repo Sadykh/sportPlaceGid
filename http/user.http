@@ -1,0 +1,29 @@
+### get user info
+GET {{host-url}}
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Signup new user
+POST {{host-url}}/user/
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "1122asdsa@dfsf.u",
+  "name": "asdasd",
+  "password": "qwerty12345"
+}
+
+
+### get user info
+GET {{host-url}}/user
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
