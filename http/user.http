@@ -5,25 +5,39 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
+
+### get user
+GET {{host-url}}/api/user/test
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+
+
 ### Signup new user
-POST {{host-url}}/user/
+POST {{host-url}}/api/user/signup
 Cache-Control: no-cache
 Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "1122asdsa@dfsf.u",
+  "email": "11122asdsa@dfsf.ru",
   "name": "asdasd",
   "password": "qwerty12345"
 }
 
 
 ### get user info
-GET {{host-url}}/user
-Cache-Control: no-cache
+POST {{host-url}}/oauth/token
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{token}}
+
+{
+  "client_id": "vuejs",
+  "client_secret": "vuejssecret",
+  "grant_type": "password",
+  "username": "admin@test1.ru",
+  "password": "qwerty"
+}
 
 ###
 
