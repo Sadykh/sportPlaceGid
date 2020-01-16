@@ -1,0 +1,9 @@
+### get category list
+GET {{host-url}}/category/
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+

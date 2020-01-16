@@ -1,7 +1,9 @@
 package com.sportPlaceGid;
 
 import com.sportPlaceGid.domain.User;
+import com.sportPlaceGid.infrastructure.dto.category.CategoryCreateDto;
 import com.sportPlaceGid.infrastructure.dto.user.UserCreateDto;
+import com.sportPlaceGid.infrastructure.service.CategoryService;
 import com.sportPlaceGid.infrastructure.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,15 +24,33 @@ public class SportPlaceGidApplication {
     @Autowired
     private UserService userService;
 
+
+    @Autowired
+    private CategoryService categoryService;
+
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            try {
-				userService.registerNewUserAccount(new UserCreateDto("admin@test1.ru", "Test1", "qwerty"));
-			}  catch (final Exception e) {
-                System.out.println(e.getLocalizedMessage());
-                System.out.println("Пользователь возможно уже есть");
-            }
+            this.initUsers();
+            this.initCategory();
         };
+    }
+
+    public void initUsers() {
+        try {
+            userService.registerNewUserAccount(new UserCreateDto("admin@test1.ru", "Test1", "qwerty"));
+        } catch (final Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            System.out.println("Пользователь возможно уже есть");
+        }
+    }
+
+    public void initCategory() {
+        categoryService.createCategory(new CategoryCreateDto("Дрифт площадки"));
+        categoryService.createCategory(new CategoryCreateDto("Горнолыжные площадки"));
+        categoryService.createCategory(new CategoryCreateDto("Картинг"));
+        categoryService.createCategory(new CategoryCreateDto("JDM площадки"));
+        categoryService.createCategory(new CategoryCreateDto("Роллердром"));
+        categoryService.createCategory(new CategoryCreateDto("Скейт парки"));
     }
 }

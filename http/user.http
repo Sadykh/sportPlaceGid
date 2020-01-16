@@ -27,7 +27,7 @@ Accept: application/json
 
 
 ### get user info
-POST {{host-url}}/oauth/token
+POST {{auth-url}}/oauth/token
 Content-Type: application/json
 Accept: application/json
 
@@ -38,6 +38,12 @@ Accept: application/json
   "username": "admin@test1.ru",
   "password": "qwerty"
 }
+
+> {%
+client.global.set('token', response.body.access_token);
+client.global.set('refresh_token', response.body.refresh_token);
+%}
+
 
 ###
 
