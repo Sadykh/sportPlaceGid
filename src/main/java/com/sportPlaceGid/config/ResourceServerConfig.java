@@ -26,9 +26,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         //-- define URL patterns to enable OAuth2 security
         http
                 .authorizeRequests()
-                .antMatchers("/api/user/signup").permitAll()
-                .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 

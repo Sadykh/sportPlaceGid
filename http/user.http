@@ -7,20 +7,20 @@ Authorization: Bearer {{token}}
 
 
 ### get user
-GET {{host-url}}/api/user/test
+GET {{host-url}}/user/test
 Cache-Control: no-cache
 Content-Type: application/json
 Accept: application/json
 
 
 ### Signup new user
-POST {{host-url}}/api/user/signup
+POST {{host-url}}/user/signup
 Cache-Control: no-cache
 Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "11122asdsa@dfsf.ru",
+  "email": "111222asdsa@dfsf.ru",
   "name": "asdasd",
   "password": "qwerty12345"
 }

@@ -18,7 +18,7 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/")
+    @PostMapping("/signup")
     public UserCreateDto addUser(@RequestBody @Valid UserCreateDto userCreateDto) {
         return userService.registerNewUserAccount(userCreateDto);
     }
