@@ -2,8 +2,10 @@ package com.sportPlaceGid;
 
 import com.sportPlaceGid.domain.User;
 import com.sportPlaceGid.infrastructure.dto.category.CategoryCreateDto;
+import com.sportPlaceGid.infrastructure.dto.city.CityCreateDto;
 import com.sportPlaceGid.infrastructure.dto.user.UserCreateDto;
 import com.sportPlaceGid.infrastructure.service.CategoryService;
+import com.sportPlaceGid.infrastructure.service.CityService;
 import com.sportPlaceGid.infrastructure.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,10 +22,11 @@ public class SportPlaceGidApplication {
         SpringApplication.run(SportPlaceGidApplication.class, args);
     }
 
+    @Autowired
+    private CityService cityService;
 
     @Autowired
     private UserService userService;
-
 
     @Autowired
     private CategoryService categoryService;
@@ -33,6 +36,7 @@ public class SportPlaceGidApplication {
         return (args) -> {
             this.initUsers();
             this.initCategory();
+            this.initCity();
         };
     }
 
@@ -52,5 +56,15 @@ public class SportPlaceGidApplication {
         categoryService.createCategory(new CategoryCreateDto("JDM площадки"));
         categoryService.createCategory(new CategoryCreateDto("Роллердром"));
         categoryService.createCategory(new CategoryCreateDto("Скейт парки"));
+    }
+
+    public void initCity() {
+        cityService.create(new CityCreateDto("Москва"));
+        cityService.create(new CityCreateDto("Санкт-Петербург"));
+        cityService.create(new CityCreateDto("Сочи"));
+        cityService.create(new CityCreateDto("Казань"));
+        cityService.create(new CityCreateDto("Магнитогорск"));
+        cityService.create(new CityCreateDto("Выборг"));
+        cityService.create(new CityCreateDto("Карелия"));
     }
 }
