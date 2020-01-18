@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,6 +23,11 @@ public class Category {
     private long createdAt;
 
     private long updatedAt;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    private Set<Place> places;
+
 
     public Category(String name) {
         this.name = name;
