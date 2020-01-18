@@ -6,6 +6,7 @@ import com.sportPlaceGid.infrastructure.dto.city.CityCreateDto;
 import com.sportPlaceGid.infrastructure.dto.user.UserCreateDto;
 import com.sportPlaceGid.infrastructure.service.CategoryService;
 import com.sportPlaceGid.infrastructure.service.CityService;
+import com.sportPlaceGid.infrastructure.service.PlaceService;
 import com.sportPlaceGid.infrastructure.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,12 +32,16 @@ public class SportPlaceGidApplication {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private PlaceService placeService;
+
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
             this.initUsers();
             this.initCategory();
             this.initCity();
+            this.initPlaceRouterLevel();
         };
     }
 
@@ -66,5 +71,14 @@ public class SportPlaceGidApplication {
         cityService.create(new CityCreateDto("Магнитогорск"));
         cityService.create(new CityCreateDto("Выборг"));
         cityService.create(new CityCreateDto("Карелия"));
+    }
+
+    public void initPlaceRouterLevel() {
+        placeService.createPlaceRouterLevel("Легкая");
+        placeService.createPlaceRouterLevel("Зеленая");
+        placeService.createPlaceRouterLevel("Красная");
+        placeService.createPlaceRouterLevel("Средняя");
+        placeService.createPlaceRouterLevel("Черная");
+        placeService.createPlaceRouterLevel("Сложная");
     }
 }
