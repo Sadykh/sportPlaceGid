@@ -6,13 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Place {
+public class PlaceService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,25 +21,19 @@ public class Place {
     private String name;
 
     @ManyToOne
-    private Category category;
-
-    @ManyToOne
-    private City city;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
-    private Set<PlaceService> services;
+    private Place place;
 
     private long createdAt;
 
     private long updatedAt;
 
-    public Place(String name) {
+    public PlaceService(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return String.format("Category[id='%d',  name = '%s']", id, name);
+        return String.format("PlaceService[id='%d',  name = '%s']", id, name);
     }
 
     @PrePersist
