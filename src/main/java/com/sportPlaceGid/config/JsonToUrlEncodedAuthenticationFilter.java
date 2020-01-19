@@ -29,41 +29,49 @@ public class JsonToUrlEncodedAuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
+        HttpServletRequest requestServlet = (HttpServletRequest) request;
         HttpServletResponse responseHeader = (HttpServletResponse) response;
         responseHeader.setHeader("Access-Control-Allow-Origin", "*");
+        responseHeader.setHeader("Access-Control-Allow-Credentials", "true");
         responseHeader.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         responseHeader.setHeader("Access-Control-Max-Age", "3600");
         responseHeader.setHeader("Access-Control-Allow-Headers", "*");
-        if (Objects.equals(request.getContentType(), "application/json") && Objects.equals(((RequestFacade) request).getServletPath(), "/oauth/token")) {
-            InputStream is = request.getInputStream();
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-            int nRead;
-            byte[] data = new byte[16384];
-
-            while ((nRead = is.read(data, 0, data.length)) != -1) {
-                buffer.write(data, 0, nRead);
-            }
-            buffer.flush();
-            byte[] json = buffer.toByteArray();
-
-            HashMap<String, String> result = new ObjectMapper().readValue(json, HashMap.class);
-            HashMap<String, String[]> r = new HashMap<>();
-            for (String key : result.keySet()) {
-                String[] val = new String[1];
-                val[0] = result.get(key);
-                r.put(key, val);
-            }
-
-            String[] val = new String[1];
-            val[0] = ((RequestFacade) request).getMethod();
-            r.put("_method", val);
-
-            HttpServletRequest s = new RequestWrapper(((HttpServletRequest) request), r);
-            chain.doFilter(s, response);
+        if ("OPTIONS".equalsIgnoreCase(requestServlet.getMethod())) {
+            responseHeader.setStatus(HttpServletResponse.SC_OK);
         } else {
-            chain.doFilter(request, response);
+            if (Objects.equals(request.getContentType(), "application/json") && Objects.equals(((RequestFacade) request).getServletPath(), "/oauth/token")) {
+                InputStream is = request.getInputStream();
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+                int nRead;
+                byte[] data = new byte[16384];
+
+                while ((nRead = is.read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, nRead);
+                }
+                buffer.flush();
+                byte[] json = buffer.toByteArray();
+
+                HashMap<String, String> result = new ObjectMapper().readValue(json, HashMap.class);
+                HashMap<String, String[]> r = new HashMap<>();
+                for (String key : result.keySet()) {
+                    String[] val = new String[1];
+                    val[0] = result.get(key);
+                    r.put(key, val);
+                }
+
+                String[] val = new String[1];
+                val[0] = ((RequestFacade) request).getMethod();
+                r.put("_method", val);
+
+                HttpServletRequest s = new RequestWrapper(((HttpServletRequest) request), r);
+                chain.doFilter(s, response);
+            } else {
+                chain.doFilter(request, response);
+            }
         }
+
+
     }
 
     @Override
