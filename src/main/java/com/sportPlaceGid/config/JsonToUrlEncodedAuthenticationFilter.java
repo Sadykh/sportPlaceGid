@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,11 @@ public class JsonToUrlEncodedAuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
+        HttpServletResponse responseHeader = (HttpServletResponse) response;
+        responseHeader.setHeader("Access-Control-Allow-Origin", "*");
+        responseHeader.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        responseHeader.setHeader("Access-Control-Max-Age", "3600");
+        responseHeader.setHeader("Access-Control-Allow-Headers", "*");
         if (Objects.equals(request.getContentType(), "application/json") && Objects.equals(((RequestFacade) request).getServletPath(), "/oauth/token")) {
             InputStream is = request.getInputStream();
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();

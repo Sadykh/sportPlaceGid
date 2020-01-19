@@ -1,6 +1,9 @@
 package com.sportPlaceGid.infrastructure.controller;
 
 import com.sportPlaceGid.domain.Category;
+import com.sportPlaceGid.domain.City;
+import com.sportPlaceGid.infrastructure.dto.category.CategoryCreateDto;
+import com.sportPlaceGid.infrastructure.dto.city.CityCreateDto;
 import com.sportPlaceGid.infrastructure.dto.user.UserCreateDto;
 import com.sportPlaceGid.infrastructure.service.CategoryService;
 import com.sportPlaceGid.infrastructure.service.UserService;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/category")
@@ -25,8 +29,12 @@ public class CategoryRestController {
 
 
     @GetMapping("/")
-    public List<Category> index() {
-        return categoryService.getAll();
+    public List<CategoryCreateDto> index() {
+        List<Category> categories = categoryService.getAll();
+        return categories
+                .stream()
+                .map(item -> new CategoryCreateDto(item.getId(), item.getName()))
+                .collect(Collectors.toList());
     }
 
 }
