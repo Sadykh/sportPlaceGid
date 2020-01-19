@@ -1,5 +1,6 @@
 package com.sportPlaceGid.infrastructure.service;
 
+import com.sportPlaceGid.domain.Category;
 import com.sportPlaceGid.domain.City;
 import com.sportPlaceGid.infrastructure.dto.city.CityCreateDto;
 import com.sportPlaceGid.infrastructure.repository.CityRepository;
@@ -32,5 +33,9 @@ public class CityService {
 
     public City findByName(String name) {
         return this.cityRepository.findByName(name);
+    }
+
+    public City getById(Long id) {
+        return this.cityRepository.getOne(id);
     }
 }

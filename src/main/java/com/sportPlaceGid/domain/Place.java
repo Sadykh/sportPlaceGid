@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Set;
 
@@ -18,7 +20,7 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
@@ -30,12 +32,38 @@ public class Place {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
     private Set<PlaceService> services;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
+    private Set<PlaceRouter> routers;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private String working_hours_weekday_from;
+
+    @Column(nullable = false)
+    private String working_hours_weekday_to;
+
+    @Column(nullable = false)
+    private String working_hours_weekend_from;
+
+    @Column(nullable = false)
+    private String working_hours_weekend_to;
+
     private long createdAt;
 
     private long updatedAt;
 
-    public Place(String name) {
+
+    public Place(String name, Category category, City city, String description, String working_hours_weekday_from, String working_hours_weekday_to, String working_hours_weekend_from, String working_hours_weekend_to) {
         this.name = name;
+        this.category = category;
+        this.city = city;
+        this.description = description;
+        this.working_hours_weekday_from = working_hours_weekday_from;
+        this.working_hours_weekday_to = working_hours_weekday_to;
+        this.working_hours_weekend_from = working_hours_weekend_from;
+        this.working_hours_weekend_to = working_hours_weekend_to;
     }
 
     @Override

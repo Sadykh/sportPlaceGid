@@ -17,7 +17,7 @@ public class PlaceService {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
@@ -27,8 +27,10 @@ public class PlaceService {
 
     private long updatedAt;
 
-    public PlaceService(String name) {
+
+    public PlaceService(String name, Place place) {
         this.name = name;
+        this.place = place;
     }
 
     @Override

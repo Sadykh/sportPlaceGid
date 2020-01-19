@@ -1,20 +1,17 @@
 package com.sportPlaceGid;
 
-import com.sportPlaceGid.domain.User;
 import com.sportPlaceGid.infrastructure.dto.category.CategoryCreateDto;
 import com.sportPlaceGid.infrastructure.dto.city.CityCreateDto;
 import com.sportPlaceGid.infrastructure.dto.user.UserCreateDto;
 import com.sportPlaceGid.infrastructure.service.CategoryService;
 import com.sportPlaceGid.infrastructure.service.CityService;
-import com.sportPlaceGid.infrastructure.service.PlaceService;
+import com.sportPlaceGid.infrastructure.service.PlaceManagerService;
 import com.sportPlaceGid.infrastructure.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 @SpringBootApplication
 public class SportPlaceGidApplication {
@@ -33,7 +30,7 @@ public class SportPlaceGidApplication {
     private CategoryService categoryService;
 
     @Autowired
-    private PlaceService placeService;
+    private PlaceManagerService placeService;
 
     @Bean
     public CommandLineRunner demo() {
