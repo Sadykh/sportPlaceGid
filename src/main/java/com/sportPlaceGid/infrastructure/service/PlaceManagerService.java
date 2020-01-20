@@ -11,7 +11,6 @@ import com.sportPlaceGid.infrastructure.repository.PlaceServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +38,16 @@ public class PlaceManagerService {
         return placeRouterLevelRepository.findAll();
     }
 
+
+    public List<Place> getAll() {
+        return placeRepository.findAll();
+    }
+
+    public Place getOne(Long id) {
+        return placeRepository.getOne(id);
+    }
+
+
     public void createPlaceRouterLevel(String name) {
         PlaceRouterLevel level = new PlaceRouterLevel(name);
         try {
@@ -48,14 +57,14 @@ public class PlaceManagerService {
         }
     }
 
-    public void savePlaceService(Place place, ArrayList<PlaceServiceDto> serviceList) {
+    public void savePlaceService(Place place, List<PlaceServiceDto> serviceList) {
         serviceList.forEach(item -> {
             PlaceService service = new PlaceService(item.getName(), place);
             this.placeServiceRepository.save(service);
         });
     }
 
-    public void saveRouters(Place place, ArrayList<PlaceRouterDto> routerList) {
+    public void saveRouters(Place place, List<PlaceRouterDto> routerList) {
         routerList.forEach(item -> {
             PlaceRouterLevel level = this.placeRouterLevelRepository.getOne(item.getLevelId());
             PlaceRouter router = new PlaceRouter(item.getName(), item.getHeight(), item.getLength(), level, place);

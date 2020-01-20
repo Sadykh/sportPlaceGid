@@ -1,5 +1,6 @@
 package com.sportPlaceGid.infrastructure.dto.place;
 
+import com.sportPlaceGid.domain.PlaceRouter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,8 @@ public class PlaceRouterDto {
     @NotEmpty
     private Long levelId;
 
+    private String level_name;
+
     @NotNull
     private Integer height;
 
@@ -33,5 +36,14 @@ public class PlaceRouterDto {
         this.levelId = levelId;
         this.height = height;
         this.length = length;
+    }
+
+    public PlaceRouterDto(PlaceRouter placeRouter) {
+        this.id = placeRouter.getId();
+        this.name = placeRouter.getName();
+        this.levelId = placeRouter.getLevel().getId();
+        this.level_name = placeRouter.getLevel().getName();
+        this.height = placeRouter.getHeight();
+        this.length = placeRouter.getLength();
     }
 }

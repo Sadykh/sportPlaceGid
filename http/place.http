@@ -4,8 +4,20 @@ Cache-Control: no-cache
 Content-Type: application/json
 Accept: application/json
 
-###
 
+### get all places
+GET {{host-url}}/place/
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+
+### get one place
+GET {{host-url}}/place/564
+Cache-Control: no-cache
+Content-Type: application/json
+Accept: application/json
+
+###
 
 ### create new place
 POST {{host-url}}/place/create
@@ -16,7 +28,7 @@ Authorization: Bearer {{token}}
 
 
 {
-  "name": "5",
+  "name": "test100500",
   "categoryId": 39,
   "cityId": 121,
   "description": "adadasd",

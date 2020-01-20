@@ -1,5 +1,6 @@
 package com.sportPlaceGid.infrastructure.controller;
 
+import com.sportPlaceGid.domain.Place;
 import com.sportPlaceGid.domain.PlaceRouterLevel;
 import com.sportPlaceGid.infrastructure.dto.place.PlaceDto;
 import com.sportPlaceGid.infrastructure.service.PlaceManagerService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/place")
@@ -21,6 +23,21 @@ public class PlaceRestController {
     @GetMapping("/levels")
     public List<PlaceRouterLevel> test() {
         return placeService.getAllLevels();
+    }
+
+    @GetMapping("/")
+    public List<PlaceDto> index() {
+        List<Place> places = placeService.getAll();
+        return places
+                .stream()
+                .map(PlaceDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public PlaceDto getOneById(@PathVariable String id) {
+        Place place = placeService.getOne(Long.parseLong(id));
+        return new PlaceDto(place);
     }
 
     @PreAuthorize("#oauth2.isUser()")
