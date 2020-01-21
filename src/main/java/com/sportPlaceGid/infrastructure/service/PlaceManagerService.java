@@ -48,6 +48,11 @@ public class PlaceManagerService {
     }
 
 
+    public PlaceRouterLevel getOneLevelRouter(Long id) {
+        return this.placeRouterLevelRepository.getOne(id);
+    }
+
+
     public void createPlaceRouterLevel(String name) {
         PlaceRouterLevel level = new PlaceRouterLevel(name);
         try {
@@ -66,9 +71,14 @@ public class PlaceManagerService {
 
     public void saveRouters(Place place, List<PlaceRouterDto> routerList) {
         routerList.forEach(item -> {
-            PlaceRouterLevel level = this.placeRouterLevelRepository.getOne(item.getLevelId());
-            PlaceRouter router = new PlaceRouter(item.getName(), item.getHeight(), item.getLength(), level, place);
-            this.placeRouterRepository.save(router);
+            try {
+                PlaceRouterLevel level = this.placeRouterLevelRepository.getOne(item.getLevelId());
+                PlaceRouter router = new PlaceRouter(item.getName(), item.getHeight(), item.getLength(), level, place);
+                this.placeRouterRepository.save(router);
+            } catch (Exception exception) {
+                System.out.println(exception.getLocalizedMessage());
+            }
+
         });
     }
 

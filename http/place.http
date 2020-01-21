@@ -29,7 +29,7 @@ Authorization: Bearer {{token}}
 
 {
   "name": "test100500",
-  "categoryId": 3129,
+  "categoryId": 129,
   "cityId": 121,
   "description": "adadasd",
   "working_hours_weekday_from": 5,
@@ -53,7 +53,7 @@ Authorization: Bearer {{token}}
   "routerList": [
     {
       "name": "Пегматитовый шток",
-      "levelId": 226,
+      "levelId": 1,
       "length": 1050,
       "height": 650
     },
