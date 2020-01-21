@@ -3,6 +3,7 @@ package com.sportPlaceGid.infrastructure.controller;
 import com.sportPlaceGid.domain.Place;
 import com.sportPlaceGid.domain.PlaceRouterLevel;
 import com.sportPlaceGid.infrastructure.dto.place.PlaceDto;
+import com.sportPlaceGid.infrastructure.dto.place.PlaceRouterLevelDto;
 import com.sportPlaceGid.infrastructure.service.PlaceManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,8 +22,12 @@ public class PlaceRestController {
     private PlaceManagerService placeService;
 
     @GetMapping("/levels")
-    public List<PlaceRouterLevel> test() {
-        return placeService.getAllLevels();
+    public List<PlaceRouterLevelDto> levels() {
+        List<PlaceRouterLevel> levels = placeService.getAllLevels();
+        return levels
+                .stream()
+                .map(PlaceRouterLevelDto::new)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/")

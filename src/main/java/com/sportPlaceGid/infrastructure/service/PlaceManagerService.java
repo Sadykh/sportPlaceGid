@@ -9,6 +9,7 @@ import com.sportPlaceGid.infrastructure.repository.PlaceRouterLevelRepository;
 import com.sportPlaceGid.infrastructure.repository.PlaceRouterRepository;
 import com.sportPlaceGid.infrastructure.repository.PlaceServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,9 +39,8 @@ public class PlaceManagerService {
         return placeRouterLevelRepository.findAll();
     }
 
-
     public List<Place> getAll() {
-        return placeRepository.findAll();
+        return placeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public Place getOne(Long id) {
