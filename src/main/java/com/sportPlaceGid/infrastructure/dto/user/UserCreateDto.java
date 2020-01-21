@@ -1,6 +1,7 @@
 package com.sportPlaceGid.infrastructure.dto.user;
 
-import com.sportPlaceGid.infrastructure.validation.user.ValidPassword;
+import com.sportPlaceGid.infrastructure.validation.user.email.ValidEmailUnique;
+import com.sportPlaceGid.infrastructure.validation.user.password.ValidPassword;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class UserCreateDto {
     @NotNull
     @NotEmpty
     @Email
+    @ValidEmailUnique
     private String email;
 
     @NotNull

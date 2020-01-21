@@ -1,7 +1,6 @@
-package com.sportPlaceGid.infrastructure.validation.user;
+package com.sportPlaceGid.infrastructure.validation.user.password;
 
 import com.google.common.base.Joiner;
-import com.sportPlaceGid.infrastructure.validation.user.ValidPassword;
 import org.passay.*;
 
 import javax.validation.ConstraintValidator;
@@ -11,7 +10,7 @@ import java.util.Arrays;
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
     @Override
-    public void initialize(final com.sportPlaceGid.infrastructure.validation.user.ValidPassword arg0) {
+    public void initialize(final ValidPassword arg0) {
 
     }
 

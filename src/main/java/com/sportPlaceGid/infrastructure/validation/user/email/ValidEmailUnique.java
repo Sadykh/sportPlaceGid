@@ -1,4 +1,4 @@
-package com.sportPlaceGid.infrastructure.validation.user;
+package com.sportPlaceGid.infrastructure.validation.user.email;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,12 +10,12 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = com.sportPlaceGid.infrastructure.validation.user.PasswordConstraintValidator.class)
+@Constraint(validatedBy = EmailUniqueConstraintValidator.class)
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-public @interface ValidPassword {
+public @interface ValidEmailUnique {
 
-    String message() default "Invalid Password";
+    String message() default "Email неправильный или уже занят";
 
     Class<?>[] groups() default {};
 
