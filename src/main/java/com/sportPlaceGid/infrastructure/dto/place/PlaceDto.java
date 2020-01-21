@@ -1,6 +1,7 @@
 package com.sportPlaceGid.infrastructure.dto.place;
 
 import com.sportPlaceGid.domain.Place;
+import com.sportPlaceGid.infrastructure.validation.place.category.ValidCategoryExist;
 import com.sportPlaceGid.infrastructure.validation.place.city.ValidCityExist;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class PlaceDto {
     private String name;
 
     @NotNull
+    @ValidCategoryExist
     private Long categoryId;
 
     private String category_name;

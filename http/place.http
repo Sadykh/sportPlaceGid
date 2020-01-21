@@ -29,7 +29,7 @@ Authorization: Bearer {{token}}
 
 {
   "name": "test100500",
-  "categoryId": 39,
+  "categoryId": 3129,
   "cityId": 121,
   "description": "adadasd",
   "working_hours_weekday_from": 5,
