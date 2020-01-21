@@ -28,9 +28,12 @@ Authorization: Bearer {{token}}
 
 
 {
-  "name": "test100500",
-  "categoryId": 129,
+  "name": "Новое1",
+  "categoryId": 39,
   "cityId": 121,
+  "address": "Около Ленты",
+  "latitude": "59.956359",
+  "longitude": "30.310081",
   "description": "adadasd",
   "working_hours_weekday_from": 5,
   "working_hours_weekday_to": 6,

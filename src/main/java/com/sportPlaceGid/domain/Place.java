@@ -1,5 +1,6 @@
 package com.sportPlaceGid.domain;
 
+import com.sportPlaceGid.infrastructure.dto.place.PlaceDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,15 @@ public class Place {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private String latitude;
+
+    @Column(nullable = false)
+    private String longitude;
 
     @ManyToOne
     private Category category;
@@ -64,6 +74,20 @@ public class Place {
         this.working_hours_weekday_to = working_hours_weekday_to;
         this.working_hours_weekend_from = working_hours_weekend_from;
         this.working_hours_weekend_to = working_hours_weekend_to;
+    }
+
+    public Place(PlaceDto placeDto, Category category, City city) {
+        this.name = placeDto.getName();
+        this.category = category;
+        this.city = city;
+        this.description = placeDto.getDescription();
+        this.working_hours_weekday_from = placeDto.getWorking_hours_weekday_from();
+        this.working_hours_weekday_to = placeDto.getWorking_hours_weekday_to();
+        this.working_hours_weekend_from = placeDto.getWorking_hours_weekend_from();
+        this.working_hours_weekend_to = placeDto.getWorking_hours_weekend_to();
+        this.address = placeDto.getAddress();
+        this.longitude = placeDto.getLongitude();
+        this.latitude = placeDto.getLatitude();
     }
 
     @Override

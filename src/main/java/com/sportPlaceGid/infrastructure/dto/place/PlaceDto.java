@@ -25,6 +25,18 @@ public class PlaceDto {
     private String name;
 
     @NotNull
+    @NotEmpty
+    private String address;
+
+    @NotNull
+    @NotEmpty
+    private String latitude;
+
+    @NotNull
+    @NotEmpty
+    private String longitude;
+
+    @NotNull
     @ValidCategoryExist
     private Long categoryId;
 
@@ -70,6 +82,9 @@ public class PlaceDto {
         this.working_hours_weekday_to = place.getWorking_hours_weekday_to();
         this.working_hours_weekend_from = place.getWorking_hours_weekend_from();
         this.working_hours_weekend_to = place.getWorking_hours_weekend_to();
+        this.address = place.getAddress();
+        this.latitude = place.getLatitude();
+        this.longitude = place.getLongitude();
         this.serviceList = place
                 .getServices()
                 .stream()

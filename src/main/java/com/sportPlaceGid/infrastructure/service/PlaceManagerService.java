@@ -92,7 +92,7 @@ public class PlaceManagerService {
         if (city == null) {
             throw new Exception("Город не найден");
         }
-        Place place = new Place(dto.getName(), category, city, dto.getDescription(), dto.getWorking_hours_weekday_from(), dto.getWorking_hours_weekday_to(), dto.getWorking_hours_weekend_from(), dto.getWorking_hours_weekend_to());
+        Place place = new Place(dto, category, city);
         placeRepository.save(place);
         dto.setId(place.getId());
         this.savePlaceService(place, dto.getServiceList());
