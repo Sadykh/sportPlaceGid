@@ -69,6 +69,7 @@ public class PlaceDto {
 
     private List<PlaceServiceDto> serviceList = new ArrayList<>();
     private List<PlaceRouterDto> routerList = new ArrayList<>();
+    private List<PlaceImageDto> imageList = new ArrayList<>();
 
     public PlaceDto(Place place) {
         this.id = place.getId();
@@ -94,6 +95,11 @@ public class PlaceDto {
                 .getRouters()
                 .stream()
                 .map(PlaceRouterDto::new)
+                .collect(Collectors.toList());
+        this.imageList = place
+                .getPlaceImages()
+                .stream()
+                .map(PlaceImageDto::new)
                 .collect(Collectors.toList());
     }
 }

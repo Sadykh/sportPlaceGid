@@ -45,6 +45,9 @@ public class Place {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
     private Set<PlaceRouter> routers;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
+    private Set<PlaceImage> placeImages;
+
     @Column(nullable = false)
     private String description;
 

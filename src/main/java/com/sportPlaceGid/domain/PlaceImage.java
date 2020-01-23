@@ -6,31 +6,37 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class FileImage {
+public class PlaceImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
     private long createdAt;
 
     private long updatedAt;
 
-    public FileImage(String name) {
-        this.name = name;
-    }
+    @ManyToOne
+    private Place place;
+
+    @ManyToOne
+    private FileImage image;
+
 
     @Override
     public String toString() {
-        return String.format("FileImage[id='%d',  name = '%s']", id, name);
+        return String.format("PlaceImage[id='%d', imageId = '%s']", id, image.getId());
+    }
+
+
+    public PlaceImage(Place place, FileImage fileImage) {
+        this.image = fileImage;
+        this.place = place;
     }
 
     @PrePersist

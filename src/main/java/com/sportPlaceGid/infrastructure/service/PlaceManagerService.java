@@ -2,12 +2,10 @@ package com.sportPlaceGid.infrastructure.service;
 
 import com.sportPlaceGid.domain.*;
 import com.sportPlaceGid.infrastructure.dto.place.PlaceDto;
+import com.sportPlaceGid.infrastructure.dto.place.PlaceImageDto;
 import com.sportPlaceGid.infrastructure.dto.place.PlaceRouterDto;
 import com.sportPlaceGid.infrastructure.dto.place.PlaceServiceDto;
-import com.sportPlaceGid.infrastructure.repository.PlaceRepository;
-import com.sportPlaceGid.infrastructure.repository.PlaceRouterLevelRepository;
-import com.sportPlaceGid.infrastructure.repository.PlaceRouterRepository;
-import com.sportPlaceGid.infrastructure.repository.PlaceServiceRepository;
+import com.sportPlaceGid.infrastructure.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -30,10 +28,16 @@ public class PlaceManagerService {
     private PlaceRouterRepository placeRouterRepository;
 
     @Autowired
+    private PlaceImageRepository placeImageRepository;
+
+    @Autowired
     private CategoryService categoryService;
 
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    private FileImageService fileImageService;
 
     public List<PlaceRouterLevel> getAllLevels() {
         return placeRouterLevelRepository.findAll();
@@ -82,6 +86,18 @@ public class PlaceManagerService {
         });
     }
 
+    public void saveImages(Place place, List<PlaceImageDto> imageList) {
+        imageList.forEach(item -> {
+            try {
+                FileImage fileImage = this.fileImageService.findByName(item.getName());
+                PlaceImage placeImage = new PlaceImage(place, fileImage);
+                this.placeImageRepository.save(placeImage);
+            } catch (Exception exception) {
+                System.out.println(exception.getLocalizedMessage());
+            }
+
+        });
+    }
 
     public PlaceDto createPlace(PlaceDto dto) throws Exception {
         Category category = categoryService.getById(dto.getCategoryId());
@@ -97,6 +113,7 @@ public class PlaceManagerService {
         dto.setId(place.getId());
         this.savePlaceService(place, dto.getServiceList());
         this.saveRouters(place, dto.getRouterList());
+        this.saveImages(place, dto.getImageList());
 
         return dto;
     }

@@ -1,5 +1,6 @@
 package com.sportPlaceGid.infrastructure.service;
 
+import com.sportPlaceGid.domain.City;
 import com.sportPlaceGid.domain.FileImage;
 import com.sportPlaceGid.infrastructure.repository.FileImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,9 @@ public class FileImageService {
     public FileImage getById(Long id) {
         return this.fileImageRepository.getOne(id);
     }
+
+    public FileImage findByName(String name) {
+        return this.fileImageRepository.findByName(name);
+    }
+
 }

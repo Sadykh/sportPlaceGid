@@ -1,5 +1,6 @@
 package com.sportPlaceGid.infrastructure.controller;
 
+import com.sportPlaceGid.infrastructure.dto.files.FileImageDto;
 import com.sportPlaceGid.infrastructure.service.FileImageService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
@@ -30,7 +32,7 @@ public class UploadController {
     List<String> allowExtensions = Arrays.asList("jpg", "png", "jpeg");
 
     @PostMapping("/upload")
-    public String multiFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
+    public FileImageDto multiFileUpload(@RequestParam("file") MultipartFile file) throws Exception {
         StringJoiner sj = new StringJoiner(" , ");
         try {
             String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -38,7 +40,7 @@ public class UploadController {
             if (!allowExtensions.contains(extension)) {
                 throw new Exception("Not allowed");
             }
-            String newFileName = DigestUtils.md5Hex(file.getOriginalFilename()).toUpperCase() + "." + extension;
+            String newFileName = DigestUtils.md5Hex(Instant.now().getEpochSecond() + file.getOriginalFilename()).toUpperCase() + "." + extension;
             Path path = Paths.get(uploadFolder + newFileName);
             Files.write(path, bytes);
             fileImageService.create(newFileName);
@@ -52,6 +54,6 @@ public class UploadController {
         if (StringUtils.isEmpty(uploadedFileName)) {
             throw new Exception("File not save");
         }
-        return uploadedFileName;
+        return new FileImageDto(uploadedFileName);
     }
 }
