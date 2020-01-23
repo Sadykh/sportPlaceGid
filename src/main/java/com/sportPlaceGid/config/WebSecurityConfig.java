@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    private int maxUploadSizeInMb = 5 * 1024 * 1024;//5 MB
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -38,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/images/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .and()
                 .authorizeRequests()
@@ -75,5 +78,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         TokenApprovalStore store = new TokenApprovalStore();
         store.setTokenStore(tokenStore);
         return store;
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver cmr = new CommonsMultipartResolver();
+        cmr.setMaxUploadSize(maxUploadSizeInMb * 2);
+        cmr.setMaxUploadSizePerFile(maxUploadSizeInMb);//bytes
+        return cmr;
     }
 }
